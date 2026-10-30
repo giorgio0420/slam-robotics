@@ -1,0 +1,5 @@
+Punti triangolati: 694
+                      odometria    dopo BA
+RMSE traslazione [m]    0.01539    0.00017
+RMSE rotazione [rad]    0.01566    0.00001
+RMSE mappa [m]          2.15363    0.00682   (bootstrap -> BA)
