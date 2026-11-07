@@ -1,4 +1,5 @@
 import os
+import sys
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
@@ -9,13 +10,17 @@ from triangulation import triangulate_all
 from ba import bundle_adjustment
 from evaluation import pose_errors, pose_rmse, map_rmse
 
-DATA = "data"
-OUT = "output"
+# uso: python main.py [cartella_dati] [cartella_output]
+DATA = sys.argv[1] if len(sys.argv) > 1 else "data"
+OUT = sys.argv[2] if len(sys.argv) > 2 else "output"
 os.makedirs(OUT, exist_ok=True)
 
-# --- dati
+# --- dati (il file della traiettoria nel dataset ha un refuso nel nome)
+traj_file = DATA + "/trajectoy.dat"
+if not os.path.exists(traj_file):
+    traj_file = DATA + "/trajectory.dat"
 cam = load_camera(DATA + "/camera.dat")
-odom, gt = load_trajectory(DATA + "/trajectoy.dat")
+odom, gt = load_trajectory(traj_file)
 world = load_world(DATA + "/world.dat")
 frames = load_measurements(DATA)
 
